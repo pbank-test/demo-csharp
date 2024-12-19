@@ -5,15 +5,14 @@ jobs:
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v2
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'  
+
+    - name: Restore Dependencies
+      run: dotnet restore WebGoat/WebGoat.NET.csproj
+
+    - name: Build Project
+      run: dotnet build WebGoat/WebGoat.NET.csproj --configuration Debug
     
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1
-    
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.5
-   
-    - name: Restore Packages
-      run: nuget restore WebGoat.NET.sln
-    
-    - name: Build solution
-      run: msbuild WebGoat.NET.sln
