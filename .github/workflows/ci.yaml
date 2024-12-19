@@ -1,19 +1,22 @@
-runs-on: windows-2019
-
-steps:
-- uses: actions/checkout@v2
-
-- name: Setup MSBuild
-  uses: microsoft/setup-msbuild@v1
-
-- name: Setup NuGet
-  uses: NuGet/setup-nuget@v1.0.5
-  
-- name: setup-msbuild
-  uses: microsoft/setup-msbuild@v1.1
-
-- name: Restore Packages
-  run: nuget restore WebGoat.NET.sln
-
-- name: Build solution
-  run: msbuild WebGoat.NET.sln -t:rebuild -property:Configuration=Devel
+on:
+  push:
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+      
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1.1
+    
+    - name: Restore Packages
+      run: nuget restore WebGoat.NET.sln
+    
+    - name: Build solution
+      run: msbuild WebGoat.NET.sln -t:rebuild -property:Configuration=Devel
